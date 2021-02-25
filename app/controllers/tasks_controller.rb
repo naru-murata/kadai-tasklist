@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     end
     
     def new
-        @task = Task.new
+        @task = current_user.tasks.build
     end
     
     def create
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
     end
     
     def update
-        if Task.update(task_params)
+        if @task.update(task_params)
             flash[:success] = 'Task は正常に更新されました'
             redirect_to @task
         else
